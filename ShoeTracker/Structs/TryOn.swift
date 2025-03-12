@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 @Model
-class TryOn {
+class TryOn: Identifiable {
     var id: UUID
     var name: String
     var details: String

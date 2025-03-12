@@ -284,8 +284,13 @@ struct ContentView: View {
     }
     
     private func deleteItem(_ item: TryOn) {
-        modelContext.delete(item)
-        try? modelContext.save()
+        // Perform the deletion on the next run loop to avoid UI update issues
+        DispatchQueue.main.async {
+            withAnimation {
+                modelContext.delete(item)
+                try? modelContext.save()
+            }
+        }
     }
 }
 

@@ -65,6 +65,7 @@ struct ContentView: View {
                 
                 ScrollView {
                     VStack(spacing: 8) {
+                        
                         // Search and filter bar
                         HStack {
                             HStack {
@@ -124,19 +125,20 @@ struct ContentView: View {
                                 
                                 if tryOns.isEmpty {
                                     // No shoes at all
-                                    VStack(spacing: 16) {
+                                    ContentUnavailableView {
                                         Image(systemName: "shoe")
-                                            .font(.system(size: 60))
-                                            .foregroundColor(.secondary)
-                                            .symbolEffect(.pulse)
-                                        
-                                        Text("No shoes")
-                                            .font(.title2)
-                                            .fontWeight(.bold)
-                                        
-                                        Text("You don't have any saved shoes yet.")
-                                            .foregroundColor(.secondary)
-                                        
+                                            .font(.system(size: 60)) // Increase icon size
+                                    } description: {
+                                        VStack(spacing: 4) {
+                                            Text("No shoes")
+                                                .font(.title)
+                                                .fontWeight(.bold)
+                                            Text("You don't have any saved shoes yet.")
+                                                .font(.body)
+                                                .foregroundColor(.secondary)
+                                        }
+                                        .padding()
+                                    } actions: {
                                         Button(action: {
                                             showingAddShoeSheet.toggle()
                                         }) {
@@ -155,18 +157,20 @@ struct ContentView: View {
                                     }
                                 } else {
                                     // No matches for the search/filter
-                                    VStack(spacing: 16) {
+                                    ContentUnavailableView {
                                         Image(systemName: "magnifyingglass")
-                                            .font(.system(size: 60))
-                                            .foregroundColor(.secondary)
-                                        
-                                        Text("No matches")
-                                            .font(.title2)
-                                            .fontWeight(.bold)
-                                        
-                                        Text("Try adjusting your search or filters")
-                                            .foregroundColor(.secondary)
-                                        
+                                            .font(.system(size: 60)) // Increase icon size
+                                    } description: {
+                                        VStack(spacing: 4) {
+                                            Text("No results")
+                                                .font(.title)
+                                                .fontWeight(.bold)
+                                            Text("No results found for your search.")
+                                                .font(.body)
+                                                .foregroundColor(.secondary)
+                                        }
+                                        .padding()
+                                    } actions: {
                                         Button(action: {
                                             // Clear all search and filters
                                             searchText = ""
@@ -186,6 +190,7 @@ struct ContentView: View {
                                         }
                                         .buttonStyle(.plain)
                                     }
+                                    .tint(.secondary)
                                 }
                                 
                                 Spacer()
